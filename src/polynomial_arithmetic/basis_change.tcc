@@ -68,17 +68,17 @@ void monomial_to_newton_basis(std::vector<FieldT> &a, const std::vector<std::vec
     if (T.size() != m + 1) throw DomainSizeException("expected T.size() == m + 1");
 
     /* MonomialToNewton */
-    std::vector<FieldT> I(T[m][0]);
-    _reverse(I, n);
+    std::vector<FieldT> J(T[m][0]);
+    _reverse(J, n);
 
     std::vector<FieldT> mod(n + 1, FieldT::zero());
     mod[n] = FieldT::one();
 
-    _polynomial_xgcd(mod, I, mod, mod, I);
+    _polynomial_xgcd(mod, J, mod, mod, J);
 
-    I.resize(n);
+    J.resize(n);
 
-    std::vector<FieldT> Q(_polynomial_multiplication_transpose(n - 1, I, a));
+    std::vector<FieldT> Q(_polynomial_multiplication_transpose(n - 1, J, a));
     _reverse(Q, n);
 
     /* TNewtonToMonomial */
